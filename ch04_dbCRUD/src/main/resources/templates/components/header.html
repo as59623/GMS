@@ -1,0 +1,98 @@
+<th:block th:fragment="header">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+	<script th:src="@{/js/jquery.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script> 
+	function query(){
+		let table="";
+	 	$.ajax({
+	 		type: 'POST',
+	 		url:"http://localhost:8081/prod/query",
+	 		contentType:"application/json",
+	 	   	data: $("#productId2").val(),
+	 	   	dataType: 'json',		 	
+	 	   	success:function (data){
+	 			console.log(data.body);
+	 			table = "<tr><td>"+data.productId+"</td><td>"+data.code+"</td><td>"+
+	 					data.name+"</td><td>"+data.unitPrice+"</td></tr>";
+	 			$("#tbody").html(table);
+	 	   	},
+	 	   	error:function (e){
+	
+	 			console.log(e);
+	 	   }
+		
+	 	});
+	 } 
+	 
+	 function Insert(){
+		 	$.ajax({
+		 		type: 'POST',
+		 		url:"http://localhost:8081/setProd",
+		 		contentType:"application/json",
+		 	   	data: 
+		 	   	JSON.stringify({
+		 	        "productId": parseInt($("#creatId").val()),
+		 	        "code": $("#creatCode").val(),
+		 	        "name": $("#creatName").val(),
+		 	        "unitPrice": $("#creatPrice").val()
+		 	    }),	 	
+		 	   	success:function (data){
+		 	   		alert("Insert Success!");
+		 			console.log(data);
+		 	   	},
+		 	   	error:function (e){
+		 	   		alert("Insert Fail!");
+		 			console.log(e);
+		 			
+		 	   }
+			
+		 	});
+		 }
+	 
+	 function Modify(){
+		 	$.ajax({
+		 		type: 'POST',
+		 		url:"http://localhost:8081/setProd",
+		 		contentType:"application/json",
+		 	   	data: 
+		 	   	JSON.stringify({
+		 	        "productId": parseInt($("#creatId").val()),
+		 	        "code": $("#creatCode").val(),
+		 	        "name": $("#creatName").val(),
+		 	        "unitPrice": parseFloat($("#creatPrice").val())
+		 	    }),		 	
+		 	   	success:function (data){
+		 	   		alert("Modify Success!");
+		 			console.log(data);
+		 	   	},
+		 	   	error:function (e){
+		 	   		alert("Modify Fail!");
+		 			console.log(e);
+		 	   }
+			
+		 	});
+		 }
+	
+	 function Delect(){
+		 alert($("#creatId").val());
+		 	$.ajax({
+		 		type: 'POST',
+		 		url:"http://localhost:8081/delProd",
+		 		contentType:"application/json",
+		 	   	data: $("#creatId").val(),	
+		 	   	success:function (data){
+		 	   		alert("Delect Success!");
+		 			console.log(data);
+		 	   	},
+		 	   	error:function (e){
+		 	   		alert("Delect Fail!");
+		 			console.log(e);
+		 	   }
+			
+		 	});
+		 }
+	</script>
+</th:block>

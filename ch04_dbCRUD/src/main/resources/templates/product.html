@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Product Table Example</title>
+	<th:block th:include="components/header :: header"></th:block>
+</head>
+<body>
+	<div class="container">
+		<h1>productTable</h1>
+		<form class="form-horizontal" role="form" th:action="@{/prod/query}" method="post">
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="productId">產品代號:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" name="productId" id="productId"
+						placeholder="Enter productId">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="productId"></label>
+				<div class="col-sm-10">
+					<button type="submit" class="btn btn-primary">查詢</button>
+				</div>
+			</div>
+			<hr/>
+			
+		</form>
+
+	
+		<th:block th:include="components/table :: productTable"></th:block>
+		
+	<h1>Ajax Test</h1>
+	
+	<div class="form-group">
+				<label class="control-label col-sm-2" for="username">productId:</label>
+				<div class="col-sm-10">
+					 <input type="text" class="form-control" id="productId2"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="username"></label>
+				<div class="col-sm-10">
+					<button type="submit" onclick="query()" class="btn btn-primary">test</button>
+				</div>
+			</div>
+			<hr/>
+<br><br>
+<!-- 	CURD -->
+			<h1>CURD</h1>
+	
+			<div class="form-group">
+				<div class="col-sm-10">
+				<label class="control-label col-sm-2" for="creatId">productId:</label>
+					 <input type="text" class="form-control" id="creatId"/>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<div class="col-sm-10">
+				<label class="control-label col-sm-2" for="creatCode">code:</label>
+					 <input type="text" class="form-control" id="creatCode"/>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<div class="col-sm-10">
+				<label class="control-label col-sm-2" for="creatName">name:</label>
+					 <input type="text" class="form-control" id="creatName"/>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<div class="col-sm-10">
+				<label class="control-label col-sm-2" for="creatPrice">unitPrice:</label>
+					 <input type="text" class="form-control" id="creatPrice"/>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<div class="col-sm-10">
+				</div>
+				<div class="col-sm-10">
+				</div>
+				<div class="col-sm-10">
+				<label class="control-label col-sm-2" ></label>
+					<button type="submit" onclick="Insert()" class="btn btn-primary">Insert</button>
+					<button type="submit" onclick="Modify()" class="btn btn-primary">Modify</button>
+					<button type="submit" onclick="Delect()" class="btn btn-primary">Delect</button>
+				</div>
+			</div>
+			<hr/>
+			
+			
+</div>
+</body>
+
+</html>

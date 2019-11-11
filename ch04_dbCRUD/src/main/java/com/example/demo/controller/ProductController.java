@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,35 +19,29 @@ import com.example.demo.service.ProductService;
 
 
 
-@RestController
+@Controller
 public class ProductController {
 	
 	@Autowired
 	public ProductService service;
 	
-	@PostMapping("/prod")
-	@ResponseBody
-	public ProductResponse getProduct(@RequestBody ProductRequest request) {
-		
-		
-		ProductResponse response =new ProductResponse();
-		ProductResponseBody responseBody = new ProductResponseBody();
-		ProductResponseHeader header =new ProductResponseHeader();
+	
+    @PostMapping("/prod/query")
+    @ResponseBody
+  public ProductResponseBody queryProduct(@RequestBody String id) {
 		
 //		get data infos
-		Integer productId=request.getBody().getProductId();
+		Integer productId =Integer.parseInt(id);
 		Product data =service.getProduct(productId);
-		
-//		set infos to responseContent
-		BeanUtils.copyProperties(request.getHeader(), header);
-		BeanUtils.copyProperties(data, responseBody);
-		
-		response.setHeader(header);
-		response.setBody(responseBody);
 
-		return response;
+		ProductResponseBody productResponseBody = new ProductResponseBody();
+		BeanUtils.copyProperties(data, productResponseBody);
+
+		return productResponseBody;
 		
 	}
+	
+	
 	@PostMapping("/setProd")
 	@ResponseBody
 	public void setProduct(@RequestBody ProductRequestInsert request) {
@@ -60,9 +55,7 @@ public class ProductController {
 	}
 	@PostMapping("/delProd")
 	@ResponseBody
-	public void delProduct(@RequestBody ProductRequestInsert request) {
-		
-		Integer productId =request.getProductId();
+	public void delProduct(@RequestBody Integer productId) {
 		
 		service.delectById(productId);
 		
